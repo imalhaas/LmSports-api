@@ -3,9 +3,6 @@ package com.lmSports.algaworksapi.LmSportsapi.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-public class Pessoa {
-
-
 
     @Entity
     @Table(name = "pessoa")
@@ -82,4 +79,4 @@ public class Pessoa {
         }
 
     }
-}
+
