@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 
-
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaResource {
@@ -24,13 +23,11 @@ public class PessoaResource {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-
     @PostMapping
     public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);
-        
-      publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
-      return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
     }
 
     @GetMapping("/{codigo}")
