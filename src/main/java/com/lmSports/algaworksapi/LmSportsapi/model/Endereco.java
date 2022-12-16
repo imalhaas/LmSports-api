@@ -1,5 +1,6 @@
 package com.lmSports.algaworksapi.LmSportsapi.model;
 
+
 import javax.persistence.Embeddable;
 
 @Embeddable
