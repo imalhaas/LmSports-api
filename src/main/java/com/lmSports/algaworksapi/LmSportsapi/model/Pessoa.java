@@ -1,5 +1,8 @@
 package com.lmSports.algaworksapi.LmSportsapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -42,6 +45,12 @@ public class Pessoa {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @JsonIgnore
+    @Transient
+    public boolean isInativo(){
+        return !this.ativo;
     }
 
     public Boolean getAtivo() {
