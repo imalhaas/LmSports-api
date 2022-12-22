@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Lancamento.class)
-public abstract class LancamentosDTOS {
+public class LancamentosDTOS {
 
     public static volatile SingularAttribute<Lancamento, Long> codigo;
     public static volatile SingularAttribute<Lancamento, String> observacao;

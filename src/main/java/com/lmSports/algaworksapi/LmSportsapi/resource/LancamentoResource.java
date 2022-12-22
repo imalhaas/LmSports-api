@@ -4,7 +4,6 @@ import com.lmSports.algaworksapi.LmSportsapi.event.RecursoCriadoEvent;
 import com.lmSports.algaworksapi.LmSportsapi.exceptionHandler.LmSportsExceptionHandler;
 import com.lmSports.algaworksapi.LmSportsapi.model.Lancamento;
 import com.lmSports.algaworksapi.LmSportsapi.repository.Filter.LancamentoFilter;
-import com.lmSports.algaworksapi.LmSportsapi.repository.LANCAMENTO.LancamentoRepositoryQuery;
 import com.lmSports.algaworksapi.LmSportsapi.repository.LancamentoRepository;
 
 import com.lmSports.algaworksapi.LmSportsapi.service.LancamentoService;
@@ -18,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -43,8 +40,8 @@ public class LancamentoResource {
     private MessageSource messageSource;
 
     @GetMapping
-    public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
-        return lancamentoRepository.filtrar(lancamentoFilter);
+    public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable) {
+        return lancamentoRepository.filtrar(lancamentoFilter, pageable);
     }
 
     @GetMapping("/{codigo}")
@@ -66,6 +63,12 @@ public class LancamentoResource {
         String mensagemDesenvolvedor = ex.toString();
         List<LmSportsExceptionHandler.Erro> erros = Arrays.asList(new LmSportsExceptionHandler.Erro(mensagemUsuario, mensagemDesenvolvedor));
         return ResponseEntity.badRequest().body(erros);
+    }
+
+    @DeleteMapping("/{codigo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long codigo) {
+        lancamentoRepository.delete(codigo);
     }
 
 }

@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Endereco.class)
-public abstract class EnderecoDTOS {
+public class EnderecoDTOS {
 
 
 

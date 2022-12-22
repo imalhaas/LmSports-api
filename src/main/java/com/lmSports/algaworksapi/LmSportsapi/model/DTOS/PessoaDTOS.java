@@ -9,7 +9,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Pessoa.class)
-public abstract class PessoaDTOS {
+public class PessoaDTOS {
 
     public static volatile SingularAttribute<Pessoa, Long> codigo;
     public static volatile SingularAttribute<Pessoa, Boolean> ativo;
