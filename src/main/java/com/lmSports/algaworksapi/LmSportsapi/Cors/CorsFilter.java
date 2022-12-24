@@ -13,6 +13,7 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
+    private String originPermitida = "http://localhost:8000";
 
 
     @Override
@@ -20,6 +21,19 @@ public class CorsFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
+
+        response.setHeader("Access-Control-Allow-Origin", originPermitida);
+        response.setHeader("Access-Control-Allow-credentials", "true");
+
+        if("OPTIONS".equals(request.getMethod()) && originPermitida.equals(request.getHeader("Origin"))){
+            response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
+            response.setHeader("Access-Control-Allow-Methods", "Authorization, Content-Type, Accept" );
+            response.setHeader("Access-Control-Max-Age", "3600");
+
+            response.setStatus(HttpServletResponse.SC_OK);
+        }else {
+            chain.doFilter(req, resp);
+        }
     }
 
     @Override
