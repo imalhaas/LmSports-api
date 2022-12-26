@@ -3,37 +3,21 @@ package com.lmSports.algaworksapi.LmSportsapi.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 
+    @Id
     private Long codigo;
 
     private String nome;
-
     private String email;
-
     private String senha;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "codigo_usuario"),
-    inverseJoinColumns = @JoinColumn(name = "cosigo_permissao"))
+    @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "codigo_usuario")
+            , inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
     private List<Permissao> permissoes;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Usuario)) return false;
-        Usuario usuario = (Usuario) o;
-        return codigo.equals(usuario.codigo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo);
-    }
 
     public Long getCodigo() {
         return codigo;
@@ -74,4 +58,30 @@ public class Usuario {
     public void setPermissoes(List<Permissao> permissoes) {
         this.permissoes = permissoes;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Usuario other = (Usuario) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
+
 }
