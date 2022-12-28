@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,6 +66,12 @@ public class PessoaResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @Valid @RequestBody boolean ativo){
         pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')")
+    public Page<Pessoa> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
+        return pessoaRepository.findByNomeContaining(nome, pageable);
     }
 
     }
