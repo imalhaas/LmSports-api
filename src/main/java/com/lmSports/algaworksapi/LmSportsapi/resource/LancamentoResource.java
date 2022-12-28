@@ -6,6 +6,7 @@ import com.lmSports.algaworksapi.LmSportsapi.model.Lancamento;
 import com.lmSports.algaworksapi.LmSportsapi.repository.Filter.LancamentoFilter;
 import com.lmSports.algaworksapi.LmSportsapi.repository.LancamentoRepository;
 
+import com.lmSports.algaworksapi.LmSportsapi.repository.Projection.ResumoLancamento;
 import com.lmSports.algaworksapi.LmSportsapi.service.LancamentoService;
 import com.lmSports.algaworksapi.LmSportsapi.service.exception.PessoaInexistenteOuInativaException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,12 @@ public class LancamentoResource {
     @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
     public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable) {
         return lancamentoRepository.filtrar(lancamentoFilter, pageable);
+    }
+
+    @GetMapping(params = "resumo")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+    public Page<ResumoLancamento > resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
+        return lancamentoRepository.resumir(lancamentoFilter, pageable);
     }
 
     @GetMapping("/{codigo}")
